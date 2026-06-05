@@ -70,7 +70,7 @@ async function inicializarApp() {
  */
 async function cargarPeliculas() {
     try {
-        const respuesta = await fetch('data/peliculas.json');
+        const respuesta = await fetch('assets/data/peliculas.json');
         if (!respuesta.ok) {
             throw new Error('No se pudo establecer la conexión con la base de datos de Marvel.');
         }
