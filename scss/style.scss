@@ -479,7 +479,7 @@ body {
   .movie-cover-wrapper {
     position: relative;
     width: 100%;
-    height: 340px;
+    height: 190px;
     overflow: hidden;
     background: linear-gradient(135deg, $bg-dark-tertiary 0%, $bg-dark-primary 100%);
     
@@ -1134,7 +1134,7 @@ body {
   }
   .movie-card {
     .movie-cover-wrapper {
-      height: 380px;
+      height: 210px;
     }
   }
 }
