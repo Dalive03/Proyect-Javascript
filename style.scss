@@ -1,0 +1,1140 @@
+/* ==========================================================================
+   SCSS PRINCIPAL - MCU MOVIE STORE
+   ========================================================================== */
+
+// 1. VARIABLES DE SASS
+$marvel-red: #E2011A;
+$marvel-red-hover: #b30012;
+$marvel-gold: #ECB939;
+$marvel-gold-hover: #d2a125;
+
+$bg-dark-primary: #0c0c0e;
+$bg-dark-secondary: #16161b;
+$bg-dark-tertiary: #202027;
+
+$text-primary: #ffffff;
+$text-secondary: #cbd5e1;
+$text-muted: #64748b;
+
+$glass-bg: rgba(22, 22, 27, 0.65);
+$glass-border: rgba(255, 255, 255, 0.07);
+$glass-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+
+$font-primary: 'Inter', sans-serif;
+$font-display: 'Outfit', sans-serif;
+
+$transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 20px;
+
+// 2. MIXINS (Bloques de código reutilizables)
+
+// Mixin para efecto de cristal (Glassmorphism)
+@mixin glass-card {
+  background: $glass-bg;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $glass-border;
+  box-shadow: $glass-glow;
+  border-radius: $border-radius-md;
+  padding: 24px;
+}
+
+// Mixin para centrado rápido con flexbox
+@mixin flex-center($direction: row, $gap: 0px) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+// Mixin para etiquetas (badges) sobre las portadas
+@mixin movie-badge($bg-color) {
+  position: absolute;
+  top: 12px;
+  background-color: $bg-color;
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: $border-radius-sm;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+
+// 3. ESTILOS BASE Y RESETEO
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: $marvel-red $bg-dark-primary;
+}
+
+// Personalización del Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  
+  &-track {
+    background: $bg-dark-primary;
+  }
+  &-thumb {
+    background-color: $marvel-red;
+    border-radius: 20px;
+    border: 2px solid $bg-dark-primary;
+  }
+}
+
+body {
+  background-color: $bg-dark-primary;
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(226, 1, 26, 0.08) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(236, 185, 57, 0.06) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: $text-primary;
+  font-family: $font-primary;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ==========================================================================
+   ESTILOS DE COMPONENTES ANIDADOS
+   ========================================================================== */
+
+// Aplicando mixin de Glassmorphism
+.card-glass {
+  @include glass-card;
+}
+
+// Botones y Variaciones
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: $font-display;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 18px;
+  border: none;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  transition: $transition-fast;
+  text-transform: uppercase;
+
+  &-primary {
+    background: $marvel-red;
+    color: $text-primary;
+    box-shadow: 0 4px 14px rgba(226, 1, 26, 0.35);
+    
+    &:hover {
+      background: $marvel-red-hover;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(226, 1, 26, 0.5);
+    }
+  }
+
+  &-secondary {
+    background-color: $bg-dark-tertiary;
+    color: $text-primary;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+
+  &-outline {
+    background: transparent;
+    color: $marvel-gold;
+    border: 1.5px solid $marvel-gold;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    
+    &:hover {
+      background: $marvel-gold;
+      color: $bg-dark-primary;
+      box-shadow: 0 0 12px rgba(236, 185, 57, 0.3);
+    }
+  }
+
+  &-danger {
+    background: #dc2626;
+    color: $text-primary;
+    
+    &:hover {
+      background: #b91c1c;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    }
+  }
+
+  &-success {
+    background: $marvel-gold;
+    color: $bg-dark-primary;
+    box-shadow: 0 4px 14px rgba(236, 185, 57, 0.35);
+    
+    &:hover {
+      background: $marvel-gold-hover;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(236, 185, 57, 0.5);
+    }
+  }
+}
+
+// Cabecera Principal
+.main-header {
+  text-align: center;
+  padding: 10px 0 20px 0;
+
+  .logo-area {
+    @include flex-center(row, 12px);
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .marvel-badge {
+    background-color: $marvel-red;
+    color: $text-primary;
+    font-family: $font-display;
+    font-weight: 900;
+    font-size: 2.2rem;
+    padding: 0px 14px;
+    letter-spacing: -2px;
+    transform: skew(-8deg);
+    border: 2px solid $text-primary;
+    box-shadow: 0 0 15px rgba(226, 1, 26, 0.6);
+  }
+
+  .main-title {
+    font-family: $font-display;
+    font-weight: 800;
+    font-size: 2.6rem;
+    letter-spacing: 2px;
+    color: $text-primary;
+    text-shadow: 0px 2px 10px rgba(255,255,255,0.05);
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: $text-secondary;
+    font-weight: 300;
+    margin-top: 4px;
+  }
+}
+
+// Estadísticas del Dashboard
+.stats-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: center;
+
+  .stat-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 12px;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+    color: $marvel-red;
+    width: 45px;
+    @include flex-center;
+
+    &.accent-color {
+      color: $marvel-gold;
+    }
+  }
+
+  .stat-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-value {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
+
+// Panel de Controles
+.controls-panel {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1.2fr;
+  gap: 24px;
+  align-items: center;
+
+  .control-label {
+    font-size: 0.85rem;
+    color: $text-secondary;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  // Barra de Búsqueda
+  .search-wrapper {
+    position: relative;
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-muted;
+      font-size: 1.1rem;
+    }
+
+    #search-input {
+      width: 100%;
+      background: $bg-dark-tertiary;
+      border: 1px solid $glass-border;
+      border-radius: $border-radius-sm;
+      padding: 14px 14px 14px 44px;
+      color: $text-primary;
+      font-family: $font-primary;
+      font-size: 0.95rem;
+      transition: $transition-fast;
+
+      &:focus {
+        outline: none;
+        border-color: $marvel-red;
+        box-shadow: 0 0 8px rgba(226, 1, 26, 0.25);
+        background-color: #26262f;
+      }
+    }
+  }
+
+  // Filtros de Fase
+  .filters-wrapper {
+    .filter-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-filter {
+      background: $bg-dark-tertiary;
+      color: $text-secondary;
+      border: 1px solid $glass-border;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-family: $font-display;
+      font-weight: 600;
+      border-radius: $border-radius-sm;
+      cursor: pointer;
+      transition: $transition-fast;
+
+      &:hover {
+        border-color: $marvel-red;
+        color: $text-primary;
+      }
+
+      &.active {
+        background: $marvel-red;
+        color: $text-primary;
+        border-color: $marvel-red;
+        box-shadow: 0 4px 10px rgba(226, 1, 26, 0.3);
+      }
+    }
+  }
+
+  // Ordenamiento
+  .sort-wrapper {
+    .select-container {
+      position: relative;
+      
+      &::after {
+        content: '\f0d7';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $text-muted;
+        pointer-events: none;
+      }
+    }
+
+    #sort-select {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      background: $bg-dark-tertiary;
+      border: 1px solid $glass-border;
+      border-radius: $border-radius-sm;
+      padding: 12px 36px 12px 16px;
+      color: $text-primary;
+      font-family: $font-primary;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: $transition-fast;
+
+      &:focus {
+        outline: none;
+        border-color: $marvel-gold;
+      }
+    }
+  }
+}
+
+// Estructura Principal
+.main-content {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.section-title {
+  font-family: $font-display;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  border-left: 4px solid $marvel-red;
+  padding-left: 12px;
+  text-transform: uppercase;
+}
+
+// SECCIÓN DE CATÁLOGO Y TARJETAS
+.catalog-section {
+  .catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 24px;
+    min-height: 400px;
+  }
+
+  .loading-spinner {
+    grid-column: 1 / -1;
+    @include flex-center(column, 16px);
+    font-size: 1.2rem;
+    color: $text-secondary;
+    min-height: 250px;
+
+    i {
+      font-size: 2.5rem;
+      color: $marvel-red;
+    }
+  }
+}
+
+// Tarjetas de Película Anidadas
+.movie-card {
+  background: $bg-dark-secondary;
+  border: 1px solid $glass-border;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: $transition-normal;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba(226, 1, 26, 0.4);
+    box-shadow: 0 12px 24px rgba(226, 1, 26, 0.15);
+
+    .movie-img {
+      transform: scale(1.05);
+    }
+  }
+
+  .movie-cover-wrapper {
+    position: relative;
+    width: 100%;
+    height: 340px;
+    overflow: hidden;
+    background: linear-gradient(135deg, $bg-dark-tertiary 0%, $bg-dark-primary 100%);
+    
+    .movie-badge-chrono {
+      @include movie-badge($marvel-gold);
+      left: 12px;
+      color: $bg-dark-primary;
+    }
+
+    .movie-badge-phase {
+      @include movie-badge($marvel-red);
+      right: 12px;
+      color: $text-primary;
+    }
+
+    .movie-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: $transition-normal;
+    }
+  }
+
+  // Respaldo de Imagen en CSS (Fallback)
+  .fallback-cover {
+    width: 100%;
+    height: 100%;
+    @include flex-center(column, 10px);
+    padding: 24px;
+    text-align: center;
+    background: linear-gradient(135deg, #1b0204 0%, #300307 50%, #000 100%);
+    border-bottom: 2px solid $marvel-red;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px dashed rgba(236, 185, 57, 0.15);
+      pointer-events: none;
+    }
+
+    .fallback-logo {
+      background: $marvel-red;
+      color: #fff;
+      font-family: $font-display;
+      font-weight: 900;
+      padding: 2px 10px;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      transform: skew(-8deg);
+      border: 1px solid #fff;
+    }
+
+    .fallback-title {
+      font-family: $font-display;
+      font-weight: 800;
+      font-size: 1.3rem;
+      line-height: 1.3;
+      color: $text-primary;
+      margin-bottom: 10px;
+    }
+
+    .fallback-icon {
+      font-size: 2.2rem;
+      color: $marvel-gold;
+      opacity: 0.8;
+    }
+  }
+
+  .movie-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .movie-year {
+      font-size: 0.85rem;
+      color: $text-muted;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .movie-card-title {
+      font-family: $font-display;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 12px;
+      color: $text-primary;
+    }
+  }
+
+  // Caja de formatos
+  .formats-box {
+    background: $bg-dark-tertiary;
+    border-radius: $border-radius-sm;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    margin-top: auto;
+
+    .formats-title {
+      font-size: 0.75rem;
+      color: $text-muted;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .format-options {
+      display: flex;
+      gap: 12px;
+    }
+
+    .format-option {
+      flex: 1;
+      display: block;
+      position: relative;
+      cursor: pointer;
+
+      input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + .format-card {
+          border-color: $marvel-gold;
+          background-color: rgba(236, 185, 57, 0.08);
+
+          .format-name {
+            color: $marvel-gold;
+          }
+        }
+      }
+
+      &:hover .format-card {
+        border-color: rgba(236, 185, 57, 0.4);
+      }
+    }
+
+    .format-card {
+      border: 1px solid rgba(255,255,255,0.06);
+      background-color: $bg-dark-secondary;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      @include flex-center(column, 2px);
+      transition: $transition-fast;
+    }
+
+    .format-name {
+      font-size: 0.7rem;
+      color: $text-secondary;
+      text-transform: uppercase;
+      font-weight: 600;
+      @include flex-center(row, 4px);
+    }
+
+    .format-price {
+      font-size: 0.95rem;
+      font-family: $font-display;
+      font-weight: 700;
+      color: $text-primary;
+    }
+  }
+
+  .movie-actions {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    gap: 8px;
+
+    .btn-details-icon {
+      background-color: $bg-dark-tertiary;
+      color: $text-secondary;
+      border: 1px solid $glass-border;
+      border-radius: $border-radius-sm;
+      cursor: pointer;
+      font-size: 1.1rem;
+      @include flex-center;
+      transition: $transition-fast;
+
+      &:hover {
+        color: $marvel-gold;
+        border-color: $marvel-gold;
+        background-color: rgba(236, 185, 57, 0.05);
+      }
+    }
+  }
+}
+
+// SECCIÓN DE CARRITO (SIDEBAR)
+.cart-section {
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 80px);
+
+  .cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 20px;
+
+    .section-title {
+      margin-bottom: 0;
+      border-left: none;
+      padding-left: 0;
+    }
+
+    i {
+      color: $marvel-red;
+    }
+  }
+
+  .badge {
+    background-color: $marvel-red;
+    color: $text-primary;
+    font-family: $font-display;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 20px;
+    box-shadow: 0 3px 8px rgba(226, 1, 26, 0.4);
+  }
+
+  .cart-empty {
+    text-align: center;
+    padding: 40px 10px;
+    @include flex-center(column, 16px);
+
+    .empty-icon {
+      font-size: 3rem;
+      color: $text-muted;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: 0.95rem;
+      font-weight: 300;
+    }
+  }
+
+  .cart-items-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
+  .cart-list {
+    list-style: none;
+    overflow-y: auto;
+    max-height: 250px;
+    padding-right: 4px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .cart-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &-info {
+      flex-grow: 1;
+    }
+
+    &-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: $text-primary;
+      line-height: 1.3;
+    }
+
+    &-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 0.75rem;
+      color: $text-muted;
+      margin-top: 2px;
+    }
+
+    .badge-format {
+      background-color: $bg-dark-tertiary;
+      color: $marvel-gold;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      border: 1px solid rgba(236,185,57,0.15);
+      font-size: 0.65rem;
+    }
+
+    &-price {
+      font-family: $font-display;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: $text-primary;
+    }
+
+    .btn-remove-item {
+      background: transparent;
+      border: none;
+      color: $text-muted;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: $transition-fast;
+      padding: 4px;
+
+      &:hover {
+        color: $marvel-red;
+      }
+    }
+  }
+
+  // Cupones en Cart
+  .coupon-section {
+    background-color: rgba(255,255,255,0.02);
+    border: 1px dashed rgba(255,255,255,0.06);
+    border-radius: $border-radius-sm;
+    padding: 14px;
+    margin-bottom: 20px;
+
+    .coupon-label {
+      font-size: 0.8rem;
+      color: $text-secondary;
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .coupon-box {
+      display: flex;
+      gap: 8px;
+    }
+
+    #coupon-input {
+      flex-grow: 1;
+      background: $bg-dark-primary;
+      border: 1px solid $glass-border;
+      border-radius: 4px;
+      color: $text-primary;
+      font-size: 0.85rem;
+      padding: 8px 12px;
+      text-transform: uppercase;
+
+      &:focus {
+        outline: none;
+        border-color: $marvel-gold;
+      }
+    }
+
+    .coupon-message {
+      font-size: 0.75rem;
+      margin-top: 6px;
+      font-weight: 500;
+
+      &.success { color: #10b981; }
+      &.error { color: #ef4444; }
+    }
+  }
+
+  // Totales
+  .cart-totals {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: $text-secondary;
+    }
+
+    .discount-row {
+      color: #10b981;
+    }
+
+    .grand-total {
+      font-family: $font-display;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: $text-primary;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 8px;
+      margin-top: 4px;
+
+      span:last-child {
+        color: $marvel-gold;
+      }
+    }
+  }
+
+  .cart-actions {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 12px;
+  }
+}
+
+// PIE DE PÁGINA
+.main-footer {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 24px;
+  margin-top: 40px;
+  text-align: center;
+
+  p {
+    font-size: 0.85rem;
+    color: $text-muted;
+    margin-bottom: 8px;
+  }
+
+  .disclaimer {
+    font-size: 0.75rem;
+    color: #475569;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.4;
+  }
+}
+
+// FORMULARIO DE CHECKOUT (SWEETALERT CUSTOM)
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  margin-top: 15px;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: $text-secondary;
+      text-transform: uppercase;
+    }
+
+    input, select {
+      background-color: $bg-dark-primary;
+      border: 1px solid $glass-border;
+      padding: 10px 12px;
+      border-radius: $border-radius-sm;
+      color: $text-primary;
+      font-family: $font-primary;
+      font-size: 0.9rem;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+        border-color: $marvel-gold;
+      }
+    }
+  }
+}
+
+.checkout-totals-summary {
+  background-color: $bg-dark-primary;
+  border-radius: $border-radius-sm;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid rgba(255,255,255,0.03);
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+
+    &.final {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 6px;
+      font-weight: 700;
+      color: $marvel-gold;
+      font-size: 1rem;
+    }
+  }
+}
+
+// FACTURA DIGITAL FINAL
+.invoice-container {
+  text-align: left;
+  font-family: monospace;
+  background-color: #fafafa;
+  color: #1e293b;
+  padding: 20px;
+  border-radius: $border-radius-sm;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+  font-size: 0.85rem;
+  border-top: 4px solid $marvel-red;
+
+  .invoice-header {
+    text-align: center;
+    border-bottom: 2px dashed #cbd5e1;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+
+    .invoice-title {
+      font-family: $font-display;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: $marvel-red;
+    }
+
+    .invoice-meta {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+  }
+
+  .invoice-list {
+    list-style: none;
+    border-bottom: 1.5px dashed #cbd5e1;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+    .invoice-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+  }
+
+  .invoice-totals {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-bottom: 2px dashed #cbd5e1;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+    .invoice-row {
+      display: flex;
+      justify-content: space-between;
+
+      &.bold {
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  .invoice-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 8px;
+  }
+}
+
+// ANIMACIONES Y UTILIDADES
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.movie-card {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+// RESPONSIVIDAD (MEDIA QUERIES) ANIDADAS
+@media (max-width: 1024px) {
+  .main-content {
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 20px;
+  }
+  .controls-panel {
+    grid-template-columns: 1fr 1fr;
+  }
+  .sort-wrapper {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 20px 10px;
+  }
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+  .controls-panel {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .sort-wrapper {
+    grid-column: span 1;
+  }
+  .stats-dashboard {
+    grid-template-columns: 1fr 1fr;
+    
+    .stat-box {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 12px;
+      
+      &:nth-child(3), &:nth-child(4) {
+        border-bottom: none;
+      }
+    }
+  }
+  .cart-section {
+    position: static;
+    max-height: none;
+
+    .cart-list {
+      max-height: 350px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-dashboard {
+    grid-template-columns: 1fr;
+    
+    .stat-box {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  }
+  .main-header {
+    .logo-area {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .main-title {
+      font-size: 2rem;
+    }
+    .marvel-badge {
+      font-size: 1.8rem;
+    }
+  }
+  .movie-card {
+    .movie-cover-wrapper {
+      height: 380px;
+    }
+  }
+}

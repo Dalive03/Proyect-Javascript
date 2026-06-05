@@ -1,0 +1,31 @@
+INSTRUCCIONES DE IMÁGENES - MCU MOVIE STORE
+===========================================
+
+Para que las portadas de tus películas se muestren correctamente en la aplicación web, debes copiar tus archivos de imagen dentro de esta carpeta ("imagenes") y renombrarlos exactamente de la siguiente manera:
+
+1. Iron Man (2008)  =>  ironman.jpg
+2. El Increíble Hulk (2008)  =>  hulk.jpg
+3. Iron Man 2 (2010)  =>  ironman2.jpg
+4. Thor (2011)  =>  thor.jpg
+5. Capitán América: El Primer Vengador (2011)  =>  capitanamerica1.jpg
+6. Los Vengadores (2012)  =>  vengadores1.jpg
+7. Iron Man 3 (2013)  =>  ironman3.jpg
+8. Thor: Un Mundo Oscuro (2013)  =>  thor2.jpg
+9. Capitán América: El Soldado del Invierno (2014)  =>  capitanamerica2.jpg
+10. Guardianes de la Galaxia (2014)  =>  guardianes1.jpg
+11. Vengadores: Era de Ultrón (2015)  =>  vengadores2.jpg
+12. Ant-Man: El Hombre Hormiga (2015)  =>  antman1.jpg
+13. Capitán América: Civil War (2016)  =>  capitanamerica3.jpg
+14. Doctor Strange: Hechicero Supremo (2016)  =>  doctorstrange.jpg
+15. Guardianes de la Galaxia Vol. 2 (2017)  =>  guardianes2.jpg
+16. Spider-Man: De Regreso a Casa (2017)  =>  spiderman1.jpg
+17. Thor: Ragnarok (2017)  =>  thor3.jpg
+18. Pantera Negra (2018)  =>  blackpanther.jpg
+19. Avengers: Infinity War (2018)  =>  vengadores3.jpg
+20. Ant-Man y la Avispa (2018)  =>  antman2.jpg
+21. Capitana Marvel (2019)  =>  capitanamarvel.jpg
+22. Avengers: Endgame (2019)  =>  vengadores4.jpg
+
+IMPORTANTE:
+- Asegúrate de que la extensión sea en minúsculas ".jpg". Si tus imágenes son ".png", ".jpeg" u otro formato, puedes convertirlas a ".jpg" o modificar el archivo "data/peliculas.json" para cambiar la extensión del archivo según corresponda.
+- Si no agregas las imágenes, la aplicación web cuenta con un sistema de respaldo automático (fallback) que renderizará una hermosa tarjeta digital con degradados de Marvel para que la app se vea perfecta desde el primer segundo.
