@@ -1,8 +1,3 @@
-/* ==========================================================================
-   LÓGICA JAVASCRIPT - MCU MOVIE STORE
-   ========================================================================== */
-
-// Estado global de la aplicación
 let peliculas = [];
 let carrito = JSON.parse(localStorage.getItem('mcu_cart')) || [];
 let filtroFase = 'all';
@@ -10,14 +5,12 @@ let busquedaQuery = '';
 let ordenSeleccionado = 'chrono';
 let cuponAplicado = null;
 
-// Cupones de descuento válidos
 const cuponesValidos = {
-    'MARVEL20': 0.20,   // 20% de descuento
-    'AVENGERS10': 0.10, // 10% de descuento
-    'ENDGAME15': 0.15   // 15% de descuento
+    'MARVEL20': 0.20,
+    'AVENGERS10': 0.10,
+    'ENDGAME15': 0.15
 };
 
-// Referencias de elementos del DOM
 const catalogGrid = document.getElementById('catalog-grid');
 const searchInput = document.getElementById('search-input');
 const filterBtns = document.querySelectorAll('.btn-filter');
@@ -40,43 +33,28 @@ const cartTotal = document.getElementById('cart-total');
 const clearCartBtn = document.getElementById('clear-cart-btn');
 const checkoutBtn = document.getElementById('checkout-btn');
 
-// Stats del dashboard
 const statCount = document.getElementById('stat-count');
 const statDigital = document.getElementById('stat-digital');
 const statBluray = document.getElementById('stat-bluray');
 const statDiscount = document.getElementById('stat-discount');
-
-// Inicialización de la aplicación al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
     inicializarApp();
 });
 
-/**
- * Función principal de inicialización
- */
 async function inicializarApp() {
-    // Carga de películas asíncrona mediante Fetch
     await cargarPeliculas();
-
-    // Configuración de escuchas de eventos (EventListeners)
     configurarEventos();
-
-    // Renderizar estado inicial
     actualizarInterfaz();
 }
 
-/**
- * Carga de datos desde peliculas.json utilizando Fetch
- */
 async function cargarPeliculas() {
     try {
-        const respuesta = await fetch('assets/data/peliculas.json');
+        const respuesta = await fetch('js/data/peliculas.json');
         if (!respuesta.ok) {
             throw new Error('No se pudo establecer la conexión con la base de datos de Marvel.');
         }
         peliculas = await respuesta.json();
     } catch (error) {
-        // En caso de error, se informa al usuario mediante SweetAlert2
         Swal.fire({
             icon: 'error',
             title: 'Error de Conexión',
@@ -97,17 +75,12 @@ async function cargarPeliculas() {
     }
 }
 
-/**
- * Configura todos los eventos interactivos de la aplicación
- */
 function configurarEventos() {
-    // 1. Barra de búsqueda interactiva (Evento input en tiempo real)
     searchInput.addEventListener('input', (e) => {
         busquedaQuery = e.target.value.toLowerCase().trim();
         renderizarCatalogo();
     });
 
-    // 2. Filtros por fase (Uso de delegación y clases activas)
     filterBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             filterBtns.forEach(b => b.classList.remove('active'));
@@ -117,26 +90,21 @@ function configurarEventos() {
         });
     });
 
-    // 3. Selector de ordenamiento (Evento change)
     sortSelect.addEventListener('change', (e) => {
         ordenSeleccionado = e.target.value;
         renderizarCatalogo();
     });
 
-    // 4. Delegación de eventos en el catálogo (Añadir al carrito y ver detalles)
     catalogGrid.addEventListener('click', (e) => {
-        // Buscar botón de añadir al carrito
         const btnAdd = e.target.closest('.btn-add-cart');
         if (btnAdd) {
             const peliculaId = parseInt(btnAdd.getAttribute('data-id'));
-            // Obtener el formato seleccionado dentro de la misma tarjeta
             const tarjeta = btnAdd.closest('.movie-card');
             const formatoSeleccionado = tarjeta.querySelector(`input[name="format_${peliculaId}"]:checked`).value;
             agregarAlCarrito(peliculaId, formatoSeleccionado);
             return;
         }
 
-        // Buscar botón de ver detalles
         const btnDetails = e.target.closest('.btn-details-icon');
         if (btnDetails) {
             const peliculaId = parseInt(btnDetails.getAttribute('data-id'));
@@ -144,13 +112,12 @@ function configurarEventos() {
         }
     });
 
-    // 5. Aplicar cupón de descuento
+
     applyCouponBtn.addEventListener('click', () => {
         const codigo = couponInput.value.toUpperCase().trim();
         procesarCupon(codigo);
     });
 
-    // 6. Botones de acción del carrito (Vaciar y finalizar compra)
     clearCartBtn.addEventListener('click', () => {
         vaciarCarritoConConfirmacion();
     });
@@ -160,18 +127,12 @@ function configurarEventos() {
     });
 }
 
-/**
- * Procesa y ordena el array de películas según los filtros de búsqueda, fase y orden
- */
 function obtenerPeliculasFiltradasYOrdenadas() {
-    // 1. Filtrado por barra de búsqueda y por Fase (método filter)
     let resultado = peliculas.filter(peli => {
         const coincideBusqueda = peli.titulo.toLowerCase().includes(busquedaQuery);
         const coincideFase = filtroFase === 'all' || peli.fase === parseInt(filtroFase);
         return coincideBusqueda && coincideFase;
     });
-
-    // 2. Ordenamiento (método sort)
     resultado.sort((a, b) => {
         if (ordenSeleccionado === 'chrono') {
             return a.ordenCronologico - b.ordenCronologico;
@@ -190,9 +151,6 @@ function obtenerPeliculasFiltradasYOrdenadas() {
     return resultado;
 }
 
-/**
- * Renderiza dinámicamente las tarjetas de películas en el DOM
- */
 function renderizarCatalogo() {
     const listado = obtenerPeliculasFiltradasYOrdenadas();
     catalogGrid.innerHTML = '';
@@ -207,7 +165,6 @@ function renderizarCatalogo() {
         return;
     }
 
-    // Mapeo e inyección en el DOM
     listado.forEach(peli => {
         const card = document.createElement('article');
         card.className = 'movie-card';
@@ -257,18 +214,17 @@ function renderizarCatalogo() {
 
 /**
  * Agrega un elemento al carrito de compras
- * @param {number} peliculaId - ID de la película seleccionada
- * @param {string} formato - Formato seleccionado ('digital' o 'bluray')
+ * @param {number} peliculaId 
+ * @param {string} formato 
  */
+
 function agregarAlCarrito(peliculaId, formato) {
-    // Buscar la película en el catálogo (método find)
     const pelicula = peliculas.find(p => p.id === peliculaId);
     if (!pelicula) return;
 
     const precio = formato === 'digital' ? pelicula.precioDigital : pelicula.precioBluRay;
     const cartItemId = `${peliculaId}_${formato}`;
 
-    // Buscar si el producto ya existe en el carrito con el mismo formato (método find)
     const itemExistente = carrito.find(item => item.id === cartItemId);
 
     if (itemExistente) {
@@ -284,11 +240,9 @@ function agregarAlCarrito(peliculaId, formato) {
         });
     }
 
-    // Guardar cambios en el almacenamiento persistente
     guardarCarrito();
     actualizarInterfaz();
 
-    // Notificación elegante al usuario usando SweetAlert2 Toast
     Swal.fire({
         toast: true,
         position: 'top-end',
@@ -308,10 +262,9 @@ function agregarAlCarrito(peliculaId, formato) {
 
 /**
  * Remueve un elemento específico del carrito
- * @param {string} cartItemId - ID del item del carrito a remover (ej: "1_digital")
+ * @param {string} cartItemId
  */
 function removerDelCarrito(cartItemId) {
-    // Filtrar para remover el item seleccionado (método filter)
     carrito = carrito.filter(item => item.id !== cartItemId);
     guardarCarrito();
     actualizarInterfaz();
@@ -329,9 +282,7 @@ function vaciarCarrito() {
     actualizarInterfaz();
 }
 
-/**
- * Limpia el carrito pero solicitando confirmación del usuario mediante SweetAlert2
- */
+
 function vaciarCarritoConConfirmacion() {
     Swal.fire({
         title: '¿Vaciar Carrito?',
@@ -375,7 +326,7 @@ function guardarCarrito() {
 
 /**
  * Procesa y valida el cupón ingresado por el usuario
- * @param {string} codigo - Código de descuento introducido
+ * @param {string} codigo 
  */
 function procesarCupon(codigo) {
     if (!codigo) {
@@ -390,7 +341,6 @@ function procesarCupon(codigo) {
         return;
     }
 
-    // Verificar si el cupón existe en el objeto de cupones válidos
     if (codigo in cuponesValidos) {
         cuponAplicado = codigo;
         couponMessage.textContent = `¡Cupón ${codigo} aplicado! Descuento del ${(cuponesValidos[codigo] * 100)}% activado.`;
@@ -402,9 +352,7 @@ function procesarCupon(codigo) {
     }
 }
 
-/**
- * Renderiza la sección del carrito de compras y realiza los cálculos de totales
- */
+
 function renderizarCarrito() {
     if (carrito.length === 0) {
         cartEmptyMessage.classList.remove('hidden');
@@ -418,7 +366,6 @@ function renderizarCarrito() {
 
     cartList.innerHTML = '';
 
-    // Renderizar listado de productos
     carrito.forEach(item => {
         const li = document.createElement('li');
         li.className = 'cart-item';
@@ -435,8 +382,7 @@ function renderizarCarrito() {
                 <i class="fa-solid fa-xmark"></i>
             </button>
         `;
-        
-        // Listener individual de borrado
+
         li.querySelector('.btn-remove-item').addEventListener('click', (e) => {
             const itemId = e.currentTarget.getAttribute('data-id');
             removerDelCarrito(itemId);
@@ -445,7 +391,6 @@ function renderizarCarrito() {
         cartList.appendChild(li);
     });
 
-    // Calcular Subtotal y Total utilizando el método reduce
     const subtotal = carrito.reduce((acumulador, item) => acumulador + (item.precio * item.cantidad), 0);
     let descuento = 0;
 
@@ -464,21 +409,16 @@ function renderizarCarrito() {
     cartBadge.textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0).toString();
 }
 
-/**
- * Actualiza los paneles estadísticos del dashboard principal
- */
+
 function actualizarStats() {
-    // 1. Conteo total de items (método reduce)
     const totalPeliculas = carrito.reduce((acc, item) => acc + item.cantidad, 0);
     statCount.textContent = totalPeliculas;
 
-    // 2. Conteo por formato
     const digitalCount = carrito.filter(item => item.formato === 'digital').reduce((acc, item) => acc + item.cantidad, 0);
     const blurayCount = carrito.filter(item => item.formato === 'bluray').reduce((acc, item) => acc + item.cantidad, 0);
     statDigital.textContent = digitalCount;
     statBluray.textContent = blurayCount;
 
-    // 3. Monto de descuento total
     const subtotal = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
     let descuentoMonto = 0;
     if (cuponAplicado) {
@@ -487,9 +427,7 @@ function actualizarStats() {
     statDiscount.textContent = `$${descuentoMonto.toFixed(2)}`;
 }
 
-/**
- * Lanza la interfaz de renderizado de la UI
- */
+
 function actualizarInterfaz() {
     renderizarCatalogo();
     renderizarCarrito();
@@ -498,7 +436,7 @@ function actualizarInterfaz() {
 
 /**
  * Muestra los detalles de una película mediante un modal expandido de SweetAlert2
- * @param {number} peliculaId - ID de la película
+ * @param {number} peliculaId
  */
 function mostrarDetallesPelicula(peliculaId) {
     const peli = peliculas.find(p => p.id === peliculaId);
@@ -520,7 +458,6 @@ function mostrarDetallesPelicula(peliculaId) {
         imageUrl: peli.imagen,
         imageHeight: 280,
         imageAlt: peli.titulo,
-        // Manejo de carga de imagen fallida en el modal de SweetAlert2
         didOpen: () => {
             const imgEl = Swal.getImage();
             if (imgEl) {
@@ -538,9 +475,7 @@ function mostrarDetallesPelicula(peliculaId) {
     });
 }
 
-/**
- * Simula el proceso de Checkout / Compra con formularios y validación de datos
- */
+
 function iniciarSimulacionCheckout() {
     if (carrito.length === 0) return;
 
@@ -548,7 +483,6 @@ function iniciarSimulacionCheckout() {
     const descuento = cuponAplicado ? subtotal * cuponesValidos[cuponAplicado] : 0;
     const total = subtotal - descuento;
 
-    // Lanzar el modal de formulario
     Swal.fire({
         title: 'Formulario de Compra',
         html: `
@@ -599,19 +533,17 @@ function iniciarSimulacionCheckout() {
             confirmButton: 'marvel-swal-btn',
             cancelButton: 'marvel-swal-btn-secondary'
         },
-        // Validación interactiva de campos de formulario en SweetAlert2
+
         preConfirm: () => {
             const name = document.getElementById('swal-input-name').value.trim();
             const email = document.getElementById('swal-input-email').value.trim();
             const payment = document.getElementById('swal-input-payment').value;
 
-            // Validación de vacío
             if (!name || !email) {
                 Swal.showValidationMessage('Todos los campos marcados con * son requeridos');
                 return false;
             }
 
-            // Expresión regular para validar formato del correo
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 Swal.showValidationMessage('Por favor ingresa un correo electrónico válido');
@@ -623,8 +555,7 @@ function iniciarSimulacionCheckout() {
     }).then((result) => {
         if (result.isConfirmed) {
             const datosCliente = result.value;
-            
-            // Simular animación de procesamiento de pago
+
             Swal.fire({
                 title: 'Procesando Transacción',
                 html: 'Conectando con la pasarela de pago segura de S.H.I.E.L.D...',
@@ -639,7 +570,6 @@ function iniciarSimulacionCheckout() {
                 }
             });
 
-            // Retardo de 1.8 segundos para la simulación
             setTimeout(() => {
                 generarFacturaFinal(datosCliente, subtotal, descuento, total);
             }, 1800);
@@ -657,13 +587,13 @@ function iniciarSimulacionCheckout() {
 function generarFacturaFinal(cliente, subtotal, descuento, total) {
     const fecha = new Date().toLocaleString('es-ES');
     const ticketId = Math.floor(100000 + Math.random() * 900000);
-    
-    // Mapeo del tipo de pago
+
+
     let textoPago = 'Tarjeta de Crédito';
     if (cliente.metodoPago === 'paypal') textoPago = 'PayPal';
     if (cliente.metodoPago === 'transfer') textoPago = 'Transferencia Asgardiana';
 
-    // Construir estructura del ticket de compra
+
     let itemsHTML = '';
     carrito.forEach(item => {
         itemsHTML += `
@@ -674,7 +604,7 @@ function generarFacturaFinal(cliente, subtotal, descuento, total) {
         `;
     });
 
-    // Desplegar factura final
+
     Swal.fire({
         title: '¡Compra Exitosa!',
         html: `
@@ -725,7 +655,6 @@ function generarFacturaFinal(cliente, subtotal, descuento, total) {
             confirmButton: 'marvel-swal-btn'
         }
     }).then(() => {
-        // Al cerrar el ticket, se limpia el carrito por completo
         vaciarCarrito();
     });
 }

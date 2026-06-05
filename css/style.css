@@ -1,38 +1,32 @@
-/* ==========================================================================
-   CSS PRINCIPAL - MCU MOVIE STORE
-   ========================================================================== */
-
-/* Declaración de variables globales y sistema de diseño */
 :root {
     --marvel-red: #E2011A;
     --marvel-red-hover: #b30012;
     --marvel-gold: #ECB939;
     --marvel-gold-hover: #d2a125;
-    
+
     --bg-dark-primary: #0c0c0e;
     --bg-dark-secondary: #16161b;
     --bg-dark-tertiary: #202027;
-    
+
     --text-primary: #ffffff;
     --text-secondary: #cbd5e1;
     --text-muted: #64748b;
-    
+
     --glass-bg: rgba(22, 22, 27, 0.65);
     --glass-border: rgba(255, 255, 255, 0.07);
     --glass-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-    
+
     --font-primary: 'Inter', sans-serif;
     --font-display: 'Outfit', sans-serif;
-    
+
     --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     --border-radius-sm: 8px;
     --border-radius-md: 12px;
     --border-radius-lg: 20px;
 }
 
-/* Reseteo general */
 * {
     margin: 0;
     padding: 0;
@@ -45,9 +39,11 @@
 ::-webkit-scrollbar {
     width: 8px;
 }
+
 ::-webkit-scrollbar-track {
     background: var(--bg-dark-primary);
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: var(--marvel-red);
     border-radius: 20px;
@@ -56,7 +52,7 @@
 
 body {
     background-color: var(--bg-dark-primary);
-    background-image: 
+    background-image:
         radial-gradient(at 10% 20%, rgba(226, 1, 26, 0.08) 0px, transparent 50%),
         radial-gradient(at 90% 80%, rgba(236, 185, 57, 0.06) 0px, transparent 50%);
     background-attachment: fixed;
@@ -115,6 +111,7 @@ body {
     color: var(--text-primary);
     box-shadow: 0 4px 14px rgba(226, 1, 26, 0.35);
 }
+
 .btn-primary:hover {
     background: var(--marvel-red-hover);
     transform: translateY(-2px);
@@ -127,6 +124,7 @@ body {
     color: var(--text-primary);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .btn-secondary:hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
@@ -139,6 +137,7 @@ body {
     padding: 8px 16px;
     font-size: 0.85rem;
 }
+
 .btn-outline:hover {
     background: var(--marvel-gold);
     color: var(--bg-dark-primary);
@@ -149,6 +148,7 @@ body {
     background: #dc2626;
     color: var(--text-primary);
 }
+
 .btn-danger:hover {
     background: #b91c1c;
     box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
@@ -159,6 +159,7 @@ body {
     color: var(--bg-dark-primary);
     box-shadow: 0 4px 14px rgba(236, 185, 57, 0.35);
 }
+
 .btn-success:hover {
     background: var(--marvel-gold-hover);
     transform: translateY(-2px);
@@ -201,7 +202,7 @@ body {
     font-size: 2.6rem;
     letter-spacing: 2px;
     color: var(--text-primary);
-    text-shadow: 0px 2px 10px rgba(255,255,255,0.05);
+    text-shadow: 0px 2px 10px rgba(255, 255, 255, 0.05);
 }
 
 .subtitle {
@@ -536,7 +537,7 @@ body {
     font-size: 0.8rem;
     padding: 4px 10px;
     border-radius: var(--border-radius-sm);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 5;
 }
 
@@ -551,7 +552,7 @@ body {
     font-size: 0.8rem;
     padding: 4px 10px;
     border-radius: var(--border-radius-sm);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 5;
 }
 
@@ -585,7 +586,8 @@ body {
     border-radius: var(--border-radius-sm);
     padding: 10px 14px;
     margin-bottom: 18px;
-    margin-top: auto; /* Empuja las opciones hacia abajo */
+    margin-top: auto;
+    /* Empuja las opciones hacia abajo */
 }
 
 .formats-title {
@@ -617,7 +619,7 @@ body {
 }
 
 .format-card {
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     background-color: var(--bg-dark-secondary);
     padding: 8px;
     border-radius: 6px;
@@ -632,7 +634,7 @@ body {
     border-color: rgba(236, 185, 57, 0.4);
 }
 
-.format-option input:checked + .format-card {
+.format-option input:checked+.format-card {
     border-color: var(--marvel-gold);
     background-color: rgba(236, 185, 57, 0.08);
 }
@@ -655,7 +657,7 @@ body {
     color: var(--text-primary);
 }
 
-.format-option input:checked + .format-card .format-name {
+.format-option input:checked+.format-card .format-name {
     color: var(--marvel-gold);
 }
 
@@ -701,7 +703,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     margin-bottom: 20px;
 }
 
@@ -756,7 +758,8 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    overflow: hidden; /* Para que la lista tenga scroll independiente */
+    overflow: hidden;
+    /* Para que la lista tenga scroll independiente */
 }
 
 .cart-list {
@@ -765,7 +768,7 @@ body {
     max-height: 250px;
     padding-right: 4px;
     margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .cart-item {
@@ -773,7 +776,7 @@ body {
     align-items: center;
     gap: 12px;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .cart-item:last-child {
@@ -806,7 +809,7 @@ body {
     padding: 1px 6px;
     border-radius: 4px;
     font-weight: 600;
-    border: 1px solid rgba(236,185,57,0.15);
+    border: 1px solid rgba(236, 185, 57, 0.15);
     font-size: 0.65rem;
 }
 
@@ -833,8 +836,8 @@ body {
 
 /* Sección del Cupón */
 .coupon-section {
-    background-color: rgba(255,255,255,0.02);
-    border: 1px dashed rgba(255,255,255,0.06);
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.06);
     border-radius: var(--border-radius-sm);
     padding: 14px;
     margin-bottom: 20px;
@@ -907,7 +910,7 @@ body {
     font-size: 1.35rem;
     font-weight: 800;
     color: var(--text-primary);
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding-top: 8px;
     margin-top: 4px;
 }
@@ -927,7 +930,7 @@ body {
    PIE DE PÁGINA
    ========================================================================== */
 .main-footer {
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding-top: 24px;
     margin-top: 40px;
     text-align: center;
@@ -952,8 +955,15 @@ body {
    ========================================================================== */
 /* Clases utilitarias de animación */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .movie-card {
@@ -964,7 +974,7 @@ body {
 .swal2-popup.marvel-swal-theme {
     background-color: var(--bg-dark-secondary) !important;
     border: 1px solid rgba(226, 1, 26, 0.3) !important;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
     color: var(--text-primary) !important;
     font-family: var(--font-primary) !important;
     border-radius: var(--border-radius-md) !important;
@@ -995,13 +1005,13 @@ body {
 .swal2-cancel.marvel-swal-btn-secondary {
     background-color: var(--bg-dark-tertiary) !important;
     color: var(--text-primary) !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     text-transform: uppercase;
     font-weight: 600;
 }
 
 .swal2-cancel.marvel-swal-btn-secondary:hover {
-    background-color: rgba(255,255,255,0.05) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
 /* Detalles del Formulario en SweetAlert */
@@ -1026,7 +1036,8 @@ body {
     text-transform: uppercase;
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
     background-color: var(--bg-dark-primary);
     border: 1px solid var(--glass-border);
     padding: 10px 12px;
@@ -1037,7 +1048,8 @@ body {
     width: 100%;
 }
 
-.form-group input:focus, .form-group select:focus {
+.form-group input:focus,
+.form-group select:focus {
     outline: none;
     border-color: var(--marvel-gold);
 }
@@ -1047,7 +1059,7 @@ body {
     border-radius: var(--border-radius-sm);
     padding: 12px;
     margin-top: 10px;
-    border: 1px solid rgba(255,255,255,0.03);
+    border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .summary-row {
@@ -1058,7 +1070,7 @@ body {
 }
 
 .summary-row.final {
-    border-top: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding-top: 6px;
     font-weight: 700;
     color: var(--marvel-gold);
@@ -1073,7 +1085,7 @@ body {
     color: #1e293b;
     padding: 20px;
     border-radius: var(--border-radius-sm);
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
     font-size: 0.85rem;
     border-top: 4px solid var(--marvel-red);
 }
@@ -1147,9 +1159,11 @@ body {
         grid-template-columns: 1.8fr 1.2fr;
         gap: 20px;
     }
+
     .controls-panel {
         grid-template-columns: 1fr 1fr;
     }
+
     .sort-wrapper {
         grid-column: span 2;
     }
@@ -1160,31 +1174,40 @@ body {
     .app-container {
         padding: 20px 10px;
     }
+
     .main-content {
         grid-template-columns: 1fr;
     }
+
     .controls-panel {
         grid-template-columns: 1fr;
         gap: 16px;
     }
+
     .sort-wrapper {
         grid-column: span 1;
     }
+
     .stats-dashboard {
         grid-template-columns: 1fr 1fr;
     }
+
     .stat-box {
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         padding-bottom: 12px;
     }
-    .stat-box:nth-child(3), .stat-box:nth-child(4) {
+
+    .stat-box:nth-child(3),
+    .stat-box:nth-child(4) {
         border-bottom: none;
     }
+
     .cart-section {
         position: static;
         max-height: none;
     }
+
     .cart-list {
         max-height: 350px;
     }
@@ -1194,22 +1217,28 @@ body {
     .stats-dashboard {
         grid-template-columns: 1fr;
     }
+
     .stat-box {
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
+
     .stat-box:last-child {
         border-bottom: none;
     }
+
     .logo-area {
         flex-direction: column;
         gap: 4px;
     }
+
     .main-title {
         font-size: 2rem;
     }
+
     .marvel-badge {
         font-size: 1.8rem;
     }
+
     .movie-cover-wrapper {
         height: 380px;
     }

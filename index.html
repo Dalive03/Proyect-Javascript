@@ -10,20 +10,16 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap"
         rel="stylesheet">
-    <!-- FontAwesome para iconos modernos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- SweetAlert2 CDN para modales estilizados -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/style.css">
-    <script src="assets/js/app.js" defer></script>
+    <script src="js/app.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Contenedor Principal de la App -->
     <div class="app-container">
 
-        <!-- ENCABEZADO -->
         <header class="main-header">
             <div class="logo-area">
                 <span class="marvel-badge">MARVEL</span>
@@ -32,7 +28,6 @@
             <p class="subtitle">Catálogo de Películas del MCU y Simulador de Venta Interactiva</p>
         </header>
 
-        <!-- DASHBOARD DE ESTADÍSTICAS DEL CARRITO -->
         <section class="stats-dashboard card-glass">
             <div class="stat-box">
                 <i class="fa-solid fa-film stat-icon"></i>
@@ -64,15 +59,12 @@
             </div>
         </section>
 
-        <!-- PANEL DE CONTROLES (Búsqueda, Filtros y Ordenamiento) -->
         <section class="controls-panel card-glass">
-            <!-- Barra de Búsqueda -->
             <div class="search-wrapper">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="text" id="search-input" placeholder="Buscar película por título...">
             </div>
 
-            <!-- Filtros de Fases -->
             <div class="filters-wrapper">
                 <span class="control-label">Filtrar por Fase:</span>
                 <div class="filter-buttons">
@@ -83,7 +75,6 @@
                 </div>
             </div>
 
-            <!-- Selector de Ordenamiento -->
             <div class="sort-wrapper">
                 <label for="sort-select" class="control-label">Ordenar por:</label>
                 <div class="select-container">
@@ -98,40 +89,35 @@
             </div>
         </section>
 
-        <!-- SECCIÓN PRINCIPAL: CATÁLOGO Y CARRITO -->
+
         <main class="main-content">
 
-            <!-- Grid de Películas -->
+
             <section class="catalog-section">
                 <h2 class="section-title">Películas Disponibles</h2>
                 <div id="catalog-grid" class="catalog-grid">
-                    <!-- Las tarjetas se inyectan dinámicamente desde JS -->
                     <div class="loading-spinner">
                         <i class="fa-solid fa-circle-notch fa-spin"></i> Cargando el Multiverso Cinematográfico...
                     </div>
                 </div>
             </section>
 
-            <!-- Carrito de Compras -->
             <aside class="cart-section card-glass">
                 <div class="cart-header">
                     <h2 class="section-title"><i class="fa-solid fa-cart-shopping"></i> Carrito de Compras</h2>
                     <span id="cart-badge" class="badge">0</span>
                 </div>
 
-                <!-- Mensaje cuando el carrito está vacío -->
                 <div id="cart-empty-message" class="cart-empty">
                     <i class="fa-solid fa-box-open empty-icon"></i>
                     <p>Tu carrito está vacío. ¡Elige tus películas favoritas para iniciar la compra!</p>
                 </div>
 
-                <!-- Lista de Productos Agregados -->
+
                 <div id="cart-items-container" class="cart-items-container hidden">
                     <ul id="cart-list" class="cart-list">
-                        <!-- Items del carrito se inyectan aquí -->
-                    </ul>
 
-                    <!-- Sección de Cupones -->
+                    </ul>
                     <div class="coupon-section">
                         <label for="coupon-input" class="coupon-label">¿Tienes un cupón de descuento?</label>
                         <div class="coupon-box">
@@ -141,7 +127,6 @@
                         <div id="coupon-message" class="coupon-message"></div>
                     </div>
 
-                    <!-- Resumen de Totales -->
                     <div class="cart-totals">
                         <div class="total-row">
                             <span>Subtotal:</span>
@@ -157,7 +142,6 @@
                         </div>
                     </div>
 
-                    <!-- Botones de Acción del Carrito -->
                     <div class="cart-actions">
                         <button id="clear-cart-btn" class="btn btn-danger">
                             <i class="fa-solid fa-trash-can"></i> Vaciar Carrito
@@ -171,7 +155,6 @@
 
         </main>
 
-        <!-- PIE DE PÁGINA -->
         <footer class="main-footer">
             <p>&copy; 2026 MCU Movie Store. Proyecto de Evaluación Práctica - JavaScript.</p>
             <p class="disclaimer">Marvel, Avengers y todos los nombres e imágenes relacionados son propiedad de Marvel
